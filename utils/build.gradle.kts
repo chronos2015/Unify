@@ -4,6 +4,7 @@ plugins {
     id("buildsrc.convention.kotlin-jvm")
     // Apply Kotlin Serialization plugin from `gradle/libs.versions.toml`.
     alias(libs.plugins.kotlinPluginSerialization)
+    id("io.ebean") version "13.2.0"
 }
 
 dependencies {
@@ -29,6 +30,12 @@ dependencies {
     // Ebeanが提供するクエリビルダ
     implementation("io.ebean:ebean-querybean:13.2.0")
 
+    // Liquibaseのコアライブラリ
+    runtimeOnly("org.liquibase:liquibase-core")
+
+    // DDL生成用
+    runtimeOnly("io.ebean:ebean-ddl-runner:latest_version")
+    runtimeOnly("org.liquibase:liquibase-core")
 /* =====================================================================================================================
  ユーティリティ: 補助的な役割を持つライブラリ
 ===================================================================================================================== */
