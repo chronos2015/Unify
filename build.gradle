@@ -1,0 +1,43 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '2.2.0'
+    id 'io.ebean' version '13.17.0'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Ebean
+    implementation "io.ebean:ebean-core:13.17.4"
+    implementation "io.ebean:ebean:13.17.0"
+    implementation "io.ebean:ebean-querybean:13.17.0"
+    implementation "io.ebean:ebean-migration:14.1.0"
+    annotationProcessor "io.ebean:querybean-generator:13.17.0"
+
+    // H2
+    runtimeOnly"com.h2database:h2:2.2.224"
+
+    // Ebean - テスト用
+    testImplementation "io.ebean:ebean-test:13.17.0"
+}
+
+test {
+    useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(21)
+}
+
+task dumpEbeanExtension {
+    doLast {
+        def ext = project.extensions.findByName("ebean")
+        ext.properties.each { key, value ->
+            println "ebean.${key} = ${value}"
+        }
+    }
+}
+
